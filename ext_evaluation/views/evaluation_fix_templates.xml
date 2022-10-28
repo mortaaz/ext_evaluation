@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <!-- List of Evaluation Objectives -->
+
+    <!-- <record id="view_evaluation_fix_objectives_tree" model="ir.ui.view">
+        <field name="name">evaluation.fix.objectives.tree</field>
+        <field name="model">evaluation.fix.objectives</field>
+        <field name="arch" type="xml">
+            <tree string="Evaluation Fix Objectives">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="type_of_category_item"/>
+            </tree>
+        </field>
+    </record> -->
+
+    <!-- Form View for Evaluation Objectives -->
+
+    <!-- <record id="evaluation_fix_objectives_view_form" model="ir.ui.view">
+        <field name="name">evaluation.fix.objectives.form</field>
+        <field name="model">evaluation.fix.objectives</field>
+        <field name="arch" type="xml">
+            <form string="Evaluation Fix Objectives">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="new,running,closed"/>
+                    <button name="send_to_running" states="new,closed" string="Run" type="object" class="oe_highlight" confirm="Are you sure you want to Run ? (In running state you can not Edit or Delete the objective!)"
+                     groups="ext_evaluation.group_evaluation_admin"/>
+                    <button name="send_to_close" states="running" string="Close" type="object" class="oe_highlight" groups="ext_evaluation.group_evaluation_admin"/>
+                </header>
+                <sheet>
+                   
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type_of_category_item" domain="[('is_active','=',True)]" options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="function_name"/>
+                        </group>
+                    </group>
+                    <b style="text-align: center; color: #800000;">Note: Just in Running state you can use objective</b>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record> -->
+
+
+
+
+    <!-- List of Evaluation Fix Templates -->
+    <record id="view_evaluation_fix_template_tree" model="ir.ui.view">
+        <field name="name">evaluation.fix.template.tree</field>
+        <field name="model">evaluation.fix.template</field>
+        <field name="arch" type="xml">
+            <tree string="Evaluation Fix Template">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Form View for Evaluation Fix Templates -->
+    <record id="evaluation_fix_template_view_form" model="ir.ui.view">
+        <field name="name">evaluation.fix.template.form</field>
+        <field name="model">evaluation.fix.template</field>
+        <field name="arch" type="xml">
+            <form string="Evaluation Fix Template">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="new,running,closed"/>
+                    <button name="send_to_running" states="new,closed" string="Run" type="object" class="oe_highlight" 
+                        groups="ext_evaluation.group_evaluation_admin"/>
+                    <button name="send_to_close" states="running" string="Close" type="object" class="oe_highlight" 
+                        groups="ext_evaluation.group_evaluation_admin"/>
+                </header>
+                <sheet>
+                    
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="category_id"/>
+                        </group>
+
+                    </group>
+                    <field name="fix_objective_items" nolabel="1" >
+                        <tree string="Objectives Items " editable="bottom">
+                         <!-- domain="[('category_id','=',main_category_id)]"  -->
+                            <field name="category_id" options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+                            <field name="objective_item_id"  options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+                            <field name="weight" />
+                            <field name="target"/>
+                            <field name="description"/>
+                            <!-- <field name="main_category_id" /> -->
+                            <field name="objective_function" />  
+                        </tree>
+                        <form string="Objectives Items" >
+                            <group>
+                            <group>
+                            <field name="category_id" options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+                            <field name="objective_item_id" options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+                            <field name="description"/>
+                            </group>
+                            <group> 
+                            <field name="weight" />
+                            <field name="target"/>
+                            </group>
+                            </group>   
+                        </form>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Employee -->
+    <record id="view_ext_hr_employee_evaluation_inherit" model="ir.ui.view">
+      <field name="name">ext.hr.employee.evaluation.inherit</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+          <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="evaluation_enable" options="{'no_create': True, 'no_edit': True,'no_open': True}"/>
+            </xpath>
+          </data>
+      </field>
+    </record>
+
+
+    <record id="evaluation_fix_template_action" model="ir.actions.act_window">
+        <field name="name">Fix Template</field>
+        <field name="res_model">evaluation.fix.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- <record id="evaluation_fix_objectives_action" model="ir.actions.act_window">
+        <field name="name">Fix Objectives</field>
+        <field name="res_model">evaluation.fix.objectives</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
+
+    <!-- Menus -->
+
+    <menuitem name="Fix Items" id="ext_evaluation.menu_evaluation_fix_items" parent="ext_evaluation.menu_evaluation_root" 
+      groups="ext_evaluation.group_evaluation_admin,group_eval_cpi_spi_manager"/>
+
+    <menuitem id="menu_evaluation_fix_template" name="Fix Template" parent="menu_evaluation_fix_items" sequence="10" action="ext_evaluation.evaluation_fix_template_action"
+        groups="ext_evaluation.group_evaluation_admin"/>
+
+    <!-- <menuitem id="menu_evaluation_fix_objectives" name="Fix Objectives" parent="menu_evaluation_fix_items" sequence="10" action="ext_evaluation.evaluation_fix_objectives_action"
+        groups="ext_evaluation.group_evaluation_admin"/> -->
+    
+
+</odoo>

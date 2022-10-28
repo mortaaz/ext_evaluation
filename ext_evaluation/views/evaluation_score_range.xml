@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    
+    <!-- range category items list view -->
+    <record id="view_range_category_items_tree" model="ir.ui.view">
+        <field name="name">range.category.items.tree</field>
+        <field name="model">range.category.items</field>
+        <field name="arch" type="xml">
+            <tree string="Range Category Items">
+                <field name="name"/>
+                <field name="weight"/>
+                <field name="lower_bound"/>
+                <field name="upper_bound"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- range category items form view -->
+    <record id="view_range_category_items_form" model="ir.ui.view">
+        <field name="name">range.category.items.form</field>
+        <field name="model">range.category.items</field>
+        <field name="arch" type="xml">
+            <form string="Range Category Items">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="range_category_id" />
+                            <field name="weight"/>
+                        </group>
+                        <group>
+                            <field name="lower_bound"/>
+                            <field name="upper_bound"/>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- range category list view -->
+    <record id="view_range_category_tree" model="ir.ui.view">
+        <field name="name">range.category.tree</field>
+        <field name="model">range.category</field>
+        <field name="arch" type="xml">
+            <tree string="Range Category">
+                <field name="name"/>
+                <field name="period_id"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- range category form view -->
+    <record id="view_range_category_form" model="ir.ui.view">
+        <field name="name">range.category.form</field>
+        <field name="model">range.category</field>
+        <field name="arch" type="xml">
+            <form string="Range Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="period_id" />
+                        </group>
+                        <group>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Range Category Items">
+                            <field name="range_category_items_ids">
+                                <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="weight" />
+                                    <field name="lower_bound" />
+                                    <field name="upper_bound" />
+                                    <field name="range_category_id" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+<!-- actions for range category items -->
+<record id="range_category_items_action" model="ir.actions.act_window">
+    <field name="name">Range Category Items</field>
+    <field name="res_model">range.category.items</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!-- actions for range category -->
+<record id="range_category_action" model="ir.actions.act_window">
+    <field name="name">Range Category</field>
+    <field name="res_model">range.category</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+<!-- Menus -->
+
+<menuitem id="menu_evaluation_configuration_sub_menu" name="Configuration" parent="ext_evaluation.menu_evaluation_root" 
+sequence="12" groups="ext_evaluation.group_evaluation_admin" />
+
+<menuitem id="menu_range_category_items" name="Range Category Items" parent="menu_evaluation_configuration_sub_menu" 
+sequence="15" groups="ext_evaluation.group_evaluation_admin" action="range_category_items_action"/>
+
+<menuitem id="menu_range_category" name="Range Category" parent="menu_evaluation_configuration_sub_menu"
+    sequence="16" groups="ext_evaluation.group_evaluation_admin" action="range_category_action"/>
+
+    
+
+
+
+
+</odoo>
+
+
